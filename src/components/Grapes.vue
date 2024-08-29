@@ -5,43 +5,35 @@
 </template>
 
 <script>
-
-import grapes from 'grapesjs'
-import 'grapesjs/dist/css/grapes.min.css'
-import VBtn from './grapes-components/v-btn'
+import grapes from "grapesjs";
+import "grapesjs/dist/css/grapes.min.css";
+import addVBtnBlock from "@/assets/grapesjs-blocks/v-btn-block"; // Adjust the path as necessary
+import addAnotherBlock from "@/assets/grapesjs-blocks/another-block"; // Adjust the path as necessary
 
 export default {
-  name: 'Grapes',
+  name: "Grapes",
   props: {
-    msg: String
+    msg: String,
   },
 
-  mounted () {
-    const type = 'v-btn'
-    grapes.plugins.add('components-vue', (editor, options) => {
-      var blockManager = editor.BlockManager
-      var comps = editor.DomComponents
-      var config = editor.getConfig();
-      config.forceClass = 0;
-
-      blockManager.add(type, {
-        label: 'Button',
-        content: '<v-btn />'
-      })
-
-      comps.addType(type, VBtn(editor))
-    })
+  mounted() {
+    grapes.plugins.add("components-vue", (editor, options) => {
+      // Add individual blocks
+      addVBtnBlock(editor);
+      addAnotherBlock(editor);
+      // Add more blocks as needed
+    });
 
     grapes.init({
-      container: '#gjs',
-      // storageManager: { type: 'none' },
-      plugins: ['components-vue'],
+      container: "#gjs",
+      plugins: ["components-vue"],
       canvas: {
-        styles: ['https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css']
+        styles: ["https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css"],
       },
-    })
-  }
-}
+      showDevices: false, // hide devices
+    });
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
